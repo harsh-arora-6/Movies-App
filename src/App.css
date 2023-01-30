@@ -32,7 +32,241 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.banner-card {
+  width: 100vw;
+  height: 70vh;
+  position: relative;
+}
+
+.banner-img {
+  height: 100%;
+}
+
+.banner-title {
+  position: absolute;
+  top: 40vh;
+  left: 5vw;
+  padding: 0.5rem;
+  color: aliceblue;
+  font-weight: bold;
+  background-color: #282c34;
+}
+
+.banner-text {
+  position: absolute;
+  width: 80vw;
+  top: 45vh;
+  left: 5vw;
+  padding: 0.5rem;
+  color: aliceblue;
+  font-weight: bold;
+  overflow: hidden;
+  background-color: #282c34;
+}
+
+.banner-btn {
+  width: 20rem;
+  position: absolute;
+  top: 55vh;
+  left: calc((100% - 20rem)/2);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.movie-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movie-card {
+  margin: 1rem;
+  width: 15vw;
+  height: 30vh;
+  position: relative;
+}
+
+.movie-img {
+  height: 30vh;
+}
+
+.movie-title {
+  position: absolute;
+  width: 80%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  padding: 0.5rem;
+  color: aliceblue;
+  font-weight: bold;
+  background-color: #282c34;
+}
+
+.movie-btn {
+  width: 70%;
+  position: absolute;
+  top: 20vh;
+  left: calc((100% - 70%)/2);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media screen and (max-width:1024px) {
+  .banner-card {
+
+    height: 50vh;
+
+  }
+
+  .banner-img {
+    height: 100%;
+  }
+
+  .banner-title {
+    position: absolute;
+    top: 25vh;
+    left: 3vw;
+    color: aliceblue;
+    font-weight: bold;
+    background-color: #282c34;
+  }
+
+  .banner-text {
+    position: absolute;
+    height: 10vh;
+    top: 30vh;
+    left: 3vw;
+    font-size: 0.7rem;
+    color: aliceblue;
+    font-weight: bold;
+    overflow: hidden;
+    background-color: #282c34;
+  }
+
+  .banner-btn {
+    width: 10rem;
+    position: absolute;
+    top: 42vh;
+    left: calc((100vw - 10rem)/2);
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .movie-card {
+    margin: 1rem;
+    width: 30vw;
+    height: 28vh;
+    position: relative;
+  }
+
+  .movie-img {
+    position: absolute;
+    height: 100%;
+  }
+
+  .movie-title {
+    width: 80%;
+    text-align: center;
+    height: 2rem;
+    font-size: 0.85rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+    color: aliceblue;
+    font-weight: bold;
+    background-color: #282c34;
+  }
+
+
+  .movie-btn {
+    width: 8rem;
+    position: absolute;
+    top: 20vh;
+    left: calc((100% - 8rem)/2);
+    font-size: 0.6rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width:426px) {
+  .banner-card {
+    height: 40vh;
+  }
+
+  .banner-img {
+    height: 100%;
+  }
+
+  .banner-title {
+    position: absolute;
+    top: 20vh;
+    left: 3vw;
+    color: aliceblue;
+    font-weight: bold;
+    background-color: #282c34;
+  }
+
+  .banner-text {
+    position: absolute;
+    height: 10vh;
+    top: 25vh;
+    left: 3vw;
+    font-size: 0.7rem;
+    color: aliceblue;
+    font-weight: bold;
+    overflow: hidden;
+    background-color: #282c34;
+  }
+
+  .banner-btn {
+    width: 10rem;
+    position: absolute;
+    top: 35.5vh;
+    left: calc((100vw - 10rem)/2);
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .movie-card {
+    margin: 1rem;
+    width: 30vw;
+    height: 28vh;
+    position: relative;
+  }
+
+  .movie-img {
+    position: absolute;
+    height: 100%;
+  }
+
+  .movie-title {
+    width: 80%;
+    text-align: center;
+    height: 2rem;
+    font-size: 0.7rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+    color: aliceblue;
+    font-weight: bold;
+    overflow: hidden;
+    background-color: #282c34;
+  }
+
+  .movie-btn {
+    width: 5rem;
+    position: absolute;
+    top: 15vh;
+    left: calc((100% - 5rem)/2);
+    font-size: 0.6rem;
+    text-align: center;
   }
 }
