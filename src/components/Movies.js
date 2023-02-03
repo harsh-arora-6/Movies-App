@@ -109,7 +109,7 @@ class Movies extends Component {
                             </div>
                             :
                             <div className="card movie-card" key={index} onMouseEnter={()=>this.setState({hover:index})} onMouseLeave={()=>this.setState({hover:''})}>
-                                <img src={`https://image.tmdb.org/t/p/original${moviesObj.poster_path}`} className="card-img-top movie-img" alt="..." />
+                                <img src={`https://image.tmdb.org/t/p/original${moviesObj.poster_path}`} loading='lazy' className="card-img-top movie-img" alt="..." />
                                 <div className="card-body">
                                     <h5 className="card-title movie-title">{moviesObj.title}</h5>
                                     {/* <p className ="card-text movie-text">{movies[0].description}</p> */}
