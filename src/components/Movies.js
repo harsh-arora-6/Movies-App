@@ -10,20 +10,24 @@ class Movies extends Component {
             parr:[1],
             movies:[],
             currPage:1,
-            isLoading:false
+            isLoading:false,
+            favourites:[],
         }
     }
+    // this works after dom is loaded 
     async componentDidMount(){
         this.setState({
             isLoading:true
         })
         const resp = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=0f26e2cb1909ec6606903dd88fbee1c5&page=${this.state.currPage}`);
         const data = resp.data;
+        // pass the array in double quotes otherwise unexpected results
+        let temp_movies = JSON.parse(localStorage.getItem("movies")||"[]");
+        let temp_ids = temp_movies.map((movie)=>movie.id);
         this.setState({
-            movies:[...this.state.movies,[...data.results]]
-        })
-        this.setState({
-            isLoading:false
+            movies:[...this.state.movies,[...data.results]],
+            isLoading:false,
+            favourites:[...temp_ids]
         })
     }
     changeMovies = async ()=>{
@@ -86,6 +90,26 @@ class Movies extends Component {
             isLoading:false
         })
     }
+    handleFavourites=(movieObj)=>{
+
+        let old_favourites = JSON.parse(localStorage.getItem("movies")||"[]");
+        // includes doesn't work if you search objects
+        if(this.state.favourites.includes(movieObj.id)){
+            old_favourites = old_favourites.filter((favourite) => favourite.id != movieObj.id);
+        }else{
+            old_favourites.push(movieObj);
+        }
+        // console.log(new_favourites);
+        localStorage.setItem('movies',JSON.stringify(old_favourites));
+        this.handleFavouritesState();
+    }
+    handleFavouritesState = ()=>{
+        let old_favourites = JSON.parse(localStorage.getItem("movies")||"[]");
+        let temp_favourite_id = old_favourites.map((favourite)=>favourite.id);
+        this.setState({
+            favourites:[...temp_favourite_id]
+        })
+    }
     render() {
         return (
             <>
@@ -112,14 +136,13 @@ class Movies extends Component {
                                 <img src={`https://image.tmdb.org/t/p/original${moviesObj.poster_path}`} loading='lazy' className="card-img-top movie-img" alt="..." />
                                 <div className="card-body">
                                     <h5 className="card-title movie-title">{moviesObj.title}</h5>
-                                    {/* <p className ="card-text movie-text">{movies[0].description}</p> */}
-                                    { this.state.hover === index && <a href='http://localhost:3000/#' className="btn btn-primary movie-btn">Add to Favourites</a>}
+                                    { this.state.hover === index && <a className="btn btn-primary movie-btn" onClick={()=>this.handleFavourites(moviesObj)}>{!this.state.favourites.includes(moviesObj.id)?'Add to Favourites':'Remove from Favourites'}</a>}
                                 </div>
                             </div>
                         ))
                     }
                     </div>
-                    <nav aria-label="..." style={{display:'flex',justifyContent:'center',marginTop:'1rem'}}>
+                    <nav aria-label="..." style={{display:'flex',justifyContent:'center',marginTop:'1rem',cursor:'pointer'}}>
                         <ul className="pagination">
                             <li className="page-item">
                                 <a className="page-link" onClick={()=>this.handleLeft()}>Previous</a>

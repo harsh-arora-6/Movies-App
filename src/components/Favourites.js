@@ -1,32 +1,52 @@
 import React, { Component } from 'react';
-import movies from './getMovies';
 class Favourites extends Component {
     constructor(){
         super();
         this.state = {
             genres:[],
-            currGenre:'All Genres'
+            currGenre:'All Genres',
+            movies:[]
         }
     }
-    render() {
+    componentDidMount(){
         let genres = { 28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy', 80: 'Crime', 99: 'Documentary',  18: 'Drama', 10751: 'Family', 14: 'Fantasy', 36: 'History', 27: 'Horror', 10402: 'Music', 9648: 'Mystery', 10749: 'Romance', 878: 'Sci-fi', 10770: 'TV', 53: 'Thriller', 10752: 'War', 37: 'Western' };
         let temp_genres = [];
-        for(let movieObj of movies){
+        let temp_movies = JSON.parse(localStorage.getItem("movies")||"[]");
+        for(let movieObj of temp_movies){
             if(!temp_genres.includes(genres[movieObj.genre_ids[0]]))temp_genres.push(genres[movieObj.genre_ids[0]])
         } 
         temp_genres.unshift('All Genres')
+        
+        this.setState({
+            movies:[...temp_movies],
+            genres:[...temp_genres]
+        })
+    }
+    handleGenreChange=(genre)=>{
+        this.setState({
+            currGenre:genre
+        })
+    }
+    render() {
+        let genres = { 28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy', 80: 'Crime', 99: 'Documentary',  18: 'Drama', 10751: 'Family', 14: 'Fantasy', 36: 'History', 27: 'Horror', 10402: 'Music', 9648: 'Mystery', 10749: 'Romance', 878: 'Sci-fi', 10770: 'TV', 53: 'Thriller', 10752: 'War', 37: 'Western' };
+        let filterArr = [];
+        if(this.state.currGenre === 'All Genres'){
+            filterArr = this.state.movies;
+        }else{
+            filterArr = this.state.movies.filter((movieObj)=>this.state.currGenre === genres[movieObj.genre_ids[0]]);
+        }
         return (
             <div className='row' style={{padding:'2rem',gap:'5rem'}}>
                 <div className='col-3'>
                     <ul class="list-group" style={{width:'15rem',textAlign:'center'}}>
                         
                         {
-                            temp_genres.map((genre)=>(
-                                this.state.currGenre == genre
+                            this.state.genres.map((genre)=>(
+                                this.state.currGenre === genre
                                 ?
-                                <li class="list-group-item" style={{backgroundColor:'#3f51b5',color:'white',fontWeight:'bold'}}>{genre}</li>
+                                <li class="list-group-item" style={{backgroundColor:'#3f51b5',color:'white',fontWeight:'bold',cursor:'pointer'}}>{genre}</li>
                                 :
-                                <li class="list-group-item" style={{backgroundColor:'white',color:'#3f51b5'}}>{genre}</li>
+                                <li class="list-group-item" style={{backgroundColor:'white',color:'#3f51b5',cursor:'pointer'}} onClick={()=>this.handleGenreChange(genre)}>{genre}</li>
                             ))
                         }
                     </ul>
@@ -49,11 +69,11 @@ class Favourites extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {movies.map((moviesObj,index)=>(
+                                {filterArr.map((moviesObj,index)=>(
                                     <tr>
                                         <th scope="row">{index + 1}</th>
                                         <td style={{display:'flex'}}><img src={`https://image.tmdb.org/t/p/original${moviesObj.poster_path}`} loading='lazy' style={{height:'4rem',width:'5rem',marginRight:'0.5rem'}}/>{moviesObj.title}</td>
-                                        <td>{genres[moviesObj.genre_ids['0']]}</td>
+                                        <td>{genres[moviesObj.genre_ids[0]]}</td>
                                         <td>{moviesObj.popularity}</td>
                                         <td>{moviesObj.vote_average}</td>
                                         <td><button type="button" class="btn btn-danger">Delete</button></td>
@@ -61,7 +81,7 @@ class Favourites extends Component {
                                 ))}
                             </tbody>
                         </table>
-                        <nav aria-label="...">
+                        <nav aria-label="..." style={{cursor:'pointer'}}>
                             <ul class="pagination">
                                 <li class="page-item disabled">
                                 <a class="page-link">Previous</a>
