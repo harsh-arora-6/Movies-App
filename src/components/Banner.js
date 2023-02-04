@@ -17,7 +17,7 @@ class Banner extends Component {
                     <div className="card-body">
                         <h5 className="card-title banner-title">{movies[0].title}</h5>
                         <p className ="card-text banner-text">{movies[0].overview}</p>
-                        <a href='https://www.google.com/webhp?hl=en&ictx=2&sa=X&ved=0ahUKEwiQ3dTupuz8AhXA5HMBHW51DnIQPQgJ' className="btn btn-primary banner-btn">Add to Favourites</a>
+                        <a className="btn btn-primary banner-btn">Add to Favourites</a>
                     </div>
                 </div>
                 }

@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
       <Navbar />
       <Routes>
-        <Route exact path='/' element={[<Banner />,<Movies />]}/>
+        <Route exact path='/' element={[<Banner/>,<Movies />]}/>
         <Route exact path='/favourites' element={<Favourites />} />
       </Routes>
     </Router>
